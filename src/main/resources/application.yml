@@ -2,6 +2,11 @@ server:
   port: 80
 
 spring:
+  config:
+    import:
+#      - app/jwt/jwt.yml
+      - app/cors/cors.yml
+
   flyway:
     enabled: true
     baseline-on-migrate: true
@@ -17,12 +22,12 @@ spring:
       idleTimeout: 600000
       maximum-pool-size: 300
       minimum-idle: 5
-      maxLifetime: 10000
+      maxLifetime: 100000
       leak-detection-threshold: 2000
 
   jpa:
     hibernate: # ddl-auto: 기본값 none이니까 안 써도 되는데 그냥 설명해야 하니까 쓴 거.
-      ddl-auto: none # none or validate로 유지(Flyway를 쓰니까.)
+      ddl-auto: validate # none or validate로 유지(Flyway를 쓰니까.)
     properties:
       hibernate:
         format-sql: false
