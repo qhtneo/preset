@@ -7,6 +7,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -17,7 +18,7 @@ public final class JwtProvider {
     private final Key secretKey; // 예전: String 그대로 -> 지금: Key라는 타입
     private final Long expiration;
 
-    public JwtProvider(JwtProperties jwtProperties) {
+    public JwtProvider(JwtProperties jwtProperties, @Value("app.security.jwt.secret") String secret) {
         // Key
         System.out.println("jwtProperties.secret(): " + jwtProperties.secret());
         byte[] keyBytes = Decoders.BASE64.decode(jwtProperties.secret());
