@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS member(
     reg_date                    DATETIME            NOT NULL            DEFAULT now(),
     -- PENDING, ACTIVE, SUSPENDED(BLOCKED), SLEEP, LOCKED(PROTECTED), REMOVED
     status                      VARCHAR(30)         NOT NULL            DEFAULT 'PENDING',
-    rolename                    VARCHAR(20)         NOT NULL            default 'USER_ROLE',
+    role_name                    VARCHAR(20)         NOT NULL            default 'USER_ROLE',
 
     CONSTRAINT uq_member_username UNIQUE (username),
     CONSTRAINT uq_member_nickname UNIQUE (nickname),
