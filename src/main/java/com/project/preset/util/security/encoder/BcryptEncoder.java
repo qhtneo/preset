@@ -1,4 +1,4 @@
-package com.project.preset.util.security;
+package com.project.preset.util.security.encoder;
 
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,7 +13,8 @@ public final class BcryptEncoder extends BCryptPasswordEncoder {
     @Override
     public String encode(CharSequence rawPassword) {
         // Authentication Manager -> {bcrypt}, {scrypt}, {pbkdf2}, {noop}(평문) 등등 지원
-        // 기존: {bcrypt} 생략 가능 -> 기본값 같은 취급.
+        // 아마도 시큐리티 버전에 따라서 {bcrypt}는 명시 여부 다른 듯함.
+        // (이번 버전에는 안 붙이는 게 맞는 듯함.)
         return "{bcrypt}" + super.encode(rawPassword);
     }
 }

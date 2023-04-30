@@ -4,8 +4,9 @@ server:
 spring:
   config:
     import:
-#      - app/jwt/jwt.yml
-      - app/cors/cors.yml
+      - classpath:/app/jwt/jwt.yml
+      - classpath:/app/cors/cors.yml
+      - classpath:/app/password/password.yml
 
   flyway:
     enabled: true

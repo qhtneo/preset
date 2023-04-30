@@ -9,6 +9,10 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 // 불변성: 속성들이 다 final이 됨.
 @ConfigurationProperties("app.security.cors")
 @ConfigurationPropertiesBinding
-public record CorsProperties(String exposedHeaders, @NestedConfigurationProperty CorsAllowedProperties allowed) {
-
+public record CorsProperties(String[] exposedHeaders, @NestedConfigurationProperty CorsAllowedProperties allowed) {
+    public CorsProperties {
+        if (exposedHeaders == null || exposedHeaders.length == 0) {
+            exposedHeaders = new String[] {"*"};
+        }
+    }
 }

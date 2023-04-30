@@ -1,9 +1,11 @@
 package com.project.preset.config;
 
-import com.project.preset.util.security.BcryptEncoder;
+import com.project.preset.util.security.encoder.PasswordEncoderFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,6 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final PasswordEncoderFactory passwordEncoderFactory;
+
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -31,6 +36,14 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BcryptEncoder(12);
+        return passwordEncoderFactory.defaultEncoder();
+    }
+
+    // JWT가 아니라 Spring Security가 하는 거.
+    // 로그인(아이디, 비밀번호 일치하는지) -> DB 조회가 필요
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 }
